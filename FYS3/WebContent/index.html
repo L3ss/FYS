@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Dojo Mobile test</title>
+	<!-- application stylesheet will go here -->
+	<link rel="stylesheet" type="text/css" href="dojox/mobile/themes/holodark/holodark.css"></link>
+    <!-- dynamically apply native visual theme according to the browser user agent -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/mobile/deviceTheme.js"></script>
+    <!-- dojo configuration options -->
+    <script type="text/javascript">
+        dojoConfig = {
+            async: true,
+            parseOnLoad: false
+        };
+    </script>
+    <!-- dojo bootstrap -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+    <!-- dojo application code -->
+    <script type="text/javascript">
+        require([
+            "dojox/mobile/parser",
+            "dojox/mobile/compat",
+            "dojo/domReady!",
+            "dojox/mobile/View",
+            "dojox/mobile/Heading",
+            "dojox/mobile/RoundRectList",
+            "dojox/mobile/ListItem",
+            "dojox/mobile/TextBox",
+            "dojox/mobile/Button",
+            "dojox/mobile/DatePicker"
+        ], function (parser) {
+            // now parse the page for widgets
+            parser.parse();
+        });
+    </script>
+</head>
+<body style="visibility:hidden;">
+	<div id="indexview" data-dojo-type="dojox/mobile/View" data-dojo-props="selected:true">
+		<h1 data-dojo-type="dojox/mobile/Heading">Belle Air</h1>
+		<ul data-dojo-type="dojox/mobile/RoundRectList">
+		    <li data-dojo-type="dojox/mobile/ListItem"
+		        data-dojo-props="moveTo: 'login'">Login</li>
+		    <li data-dojo-type="dojox/mobile/ListItem"
+		        data-dojo-props="moveTo:'register'">Register</li>
+		    <li data-dojo-type="dojox/mobile/ListItem"
+		    	data-dojo-props="moveTo:'searchflight'">Search Flight</li>
+		</ul>
+</div>
+<div id="login" data-dojo-type="dojox/mobile/View">
+	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="back:'Back', moveTo:'indexview'">Login</h1>
+	<ul data-dojo-type="dojox/mobile/RoundRectList">
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<input data-dojo-type="dojox/mobile/TextBox" placeHolder="E-mail address" />
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<input type="password" data-dojo-type="dojox/mobile/TextBox" placeHolder="Password" />
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<button data-dojo-type="dojox/mobile/Button">Login</button>
+		</li>
+	</ul>
+</div>
+<div id="register" data-dojo-type="dojox/mobile/View">
+	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="back:'Back', moveTo:'indexview'">Login</h1>
+	<ul data-dojo-type="dojox/mobile/RoundRectList">
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<input data-dojo-type="dojox/mobile/TextBox" placeHolder="First name" />
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<input data-dojo-type="dojox/mobile/TextBox" placeHolder="Last name" />
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<div id="spin1" data-dojo-type="dojox/mobile/DatePicker"></div>
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<input data-dojo-type="dojox/mobile/TextBox" placeHolder="E-mail address" />
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<input type="password" data-dojo-type="dojox/mobile/TextBox" placeHolder="Password" />
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<button data-dojo-type="dojox/mobile/Button">Register</button>
+		</li>
+	</ul>
+</div>
+<div id="searchflight" data-dojo-type="dojox/mobile/View">
+	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="back:'Back', moveTo:'indexview'">Login</h1>
+	<ul data-dojo-type="dojox/mobile/RoundRectList">
+		
+	</ul>
+</div>
+</body>
+</html>
