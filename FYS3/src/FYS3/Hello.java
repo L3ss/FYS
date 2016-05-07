@@ -27,7 +27,7 @@ public class Hello extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().println("Hello friend!");
+		response.getWriter().println("Hallo FYS!");
 		response.getWriter().println("asdf");
 	}
 

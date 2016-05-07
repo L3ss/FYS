@@ -4,6 +4,8 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="pragma" content="no-cache">
 	<title>Dojo Mobile test</title>
 	<!-- application stylesheet will go here -->
 	<link rel="stylesheet" type="text/css" href="dojox/mobile/themes/holodark/holodark.css"></link>
@@ -24,6 +26,7 @@
             "dojox/mobile/parser",
             "dojox/mobile/compat",
             "dojo/domReady!",
+            "dojo/dom",
             "dojox/mobile/View",
             "dojox/mobile/Heading",
             "dojox/mobile/RoundRectList",
@@ -34,7 +37,34 @@
         ], function (parser) {
             // now parse the page for widgets
             parser.parse();
+            
         });
+    </script>
+    <script type="text/javascript">
+    function myClick(e) {
+    	require(["dojo/dom","dijit/registry"], function(dom, registry){
+    		var passwordvalue = registry.byId("passwordTextBox").get("value");
+    		var emailvalue = registry.byId("emailTextBox").get("value");
+    	    //dom.byId("responseDiv").innerHTML = passBox.get("value");
+    	    //alert(emailBox.get("value"));
+    	    
+    	    
+    	    var xhrArgs = {
+    	    		url: "http://fys.rgbaz.com/",
+    	    		postData: dojo.toJson({function:"login",email:emailvalue,password:passwordvalue}),
+    	    		handleAs: "text",
+    	    		load: function(data){
+    	    			dom.byId("responseDiv").innerHTML = data;
+    	    		},
+    	    		error: function(error){
+    	    			dom.byId("responseDiv").innerHTML = "Er is iets fout gegaan :(";
+    	    		}
+    	    }
+    	    dom.byId("responseDiv").innerHTML = "Ga het versturen!";
+    	var deferred = dojo.xhrPost(xhrArgs);
+    	});
+    }
+    
     </script>
 </head>
 <body style="visibility:hidden;">
@@ -53,15 +83,17 @@
 	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="back:'Back', moveTo:'indexview'">Login</h1>
 	<ul data-dojo-type="dojox/mobile/RoundRectList">
 		<li data-dojo-type="dojox/mobile/ListItem">
-			<input data-dojo-type="dojox/mobile/TextBox" placeHolder="E-mail address" />
+			<input data-dojo-type="dojox/mobile/TextBox" id="emailTextBox" placeHolder="E-mail address" />
 		</li>
 		<li data-dojo-type="dojox/mobile/ListItem">
-			<input type="password" data-dojo-type="dojox/mobile/TextBox" placeHolder="Password" />
+			<input type="password" id="passwordTextBox" data-dojo-type="dojox/mobile/TextBox" placeHolder="Password" />
 		</li>
 		<li data-dojo-type="dojox/mobile/ListItem">
-			<button data-dojo-type="dojox/mobile/Button">Login</button>
+			<button data-dojo-type="dojox/mobile/Button" data-dojo-props='onClick:myClick'>Login</button>
 		</li>
 	</ul>
+	<div id="responseDiv"></div>
+	
 </div>
 <div id="register" data-dojo-type="dojox/mobile/View">
 	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="back:'Back', moveTo:'indexview'">Login</h1>
