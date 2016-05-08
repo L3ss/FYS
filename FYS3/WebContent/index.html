@@ -41,7 +41,7 @@
         });
     </script>
     <script type="text/javascript">
-    function myClick(e) {
+    function loginClick(e) {
     	require(["dojo/dom","dijit/registry"], function(dom, registry){
     		var passwordvalue = registry.byId("passwordTextBox").get("value");
     		var emailvalue = registry.byId("emailTextBox").get("value");
@@ -57,7 +57,7 @@
     	    			dom.byId("responseDiv").innerHTML = data;
     	    		},
     	    		error: function(error){
-    	    			dom.byId("responseDiv").innerHTML = "Er is iets fout gegaan :(";
+    	    			dom.byId("responseDiv").innerHTML = "Er is iets fout gegaan :(</br>" + error;
     	    		}
     	    }
     	    dom.byId("responseDiv").innerHTML = "Ga het versturen!";
@@ -66,6 +66,7 @@
     }
     
     </script>
+    <script type="text/javascript" src="registerUser.js"></script>
 </head>
 <body style="visibility:hidden;">
 	<div id="indexview" data-dojo-type="dojox/mobile/View" data-dojo-props="selected:true">
@@ -89,7 +90,7 @@
 			<input type="password" id="passwordTextBox" data-dojo-type="dojox/mobile/TextBox" placeHolder="Password" />
 		</li>
 		<li data-dojo-type="dojox/mobile/ListItem">
-			<button data-dojo-type="dojox/mobile/Button" data-dojo-props='onClick:myClick'>Login</button>
+			<button data-dojo-type="dojox/mobile/Button" data-dojo-props='onClick:loginClick'>Login</button>
 		</li>
 	</ul>
 	<div id="responseDiv"></div>
@@ -99,24 +100,31 @@
 	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="back:'Back', moveTo:'indexview'">Login</h1>
 	<ul data-dojo-type="dojox/mobile/RoundRectList">
 		<li data-dojo-type="dojox/mobile/ListItem">
-			<input data-dojo-type="dojox/mobile/TextBox" placeHolder="First name" />
+			<input data-dojo-type="dojox/mobile/TextBox" id="registerFirstName" placeHolder="First name" />
 		</li>
 		<li data-dojo-type="dojox/mobile/ListItem">
-			<input data-dojo-type="dojox/mobile/TextBox" placeHolder="Last name" />
+			<input data-dojo-type="dojox/mobile/TextBox" id="registerLastName" placeHolder="Last name" />
 		</li>
 		<li data-dojo-type="dojox/mobile/ListItem">
-			<div id="spin1" data-dojo-type="dojox/mobile/DatePicker"></div>
+			<input data-dojo-type="dojox/mobile/TextBox" id="registerIdNumber" placeHolder="ID Number" />
 		</li>
 		<li data-dojo-type="dojox/mobile/ListItem">
-			<input data-dojo-type="dojox/mobile/TextBox" placeHolder="E-mail address" />
+			<div id="registerIdExpiryDate" data-dojo-type="dojox/mobile/DatePicker"></div>
 		</li>
 		<li data-dojo-type="dojox/mobile/ListItem">
-			<input type="password" data-dojo-type="dojox/mobile/TextBox" placeHolder="Password" />
+			<div id="registerDOB" data-dojo-type="dojox/mobile/DatePicker"></div>
 		</li>
 		<li data-dojo-type="dojox/mobile/ListItem">
-			<button data-dojo-type="dojox/mobile/Button">Register</button>
+			<input data-dojo-type="dojox/mobile/TextBox" id="registerEmail" placeHolder="E-mail address" />
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<input type="password" data-dojo-type="dojox/mobile/TextBox" id="registerPassword" placeHolder="Password" />
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<button data-dojo-type="dojox/mobile/Button" data-dojo-props="onClick:registerClick">Register</button>
 		</li>
 	</ul>
+	<div id="regResponse"></div>
 </div>
 <div id="searchflight" data-dojo-type="dojox/mobile/View">
 	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="back:'Back', moveTo:'indexview'">Login</h1>
