@@ -1,5 +1,12 @@
 package fys.fis;
 
+/*
+ * -email niet in db -> user bestaat niet (login_reply:fail)
+ * -verkeerd password -> onjuiste invoer (login_reply:fail)
+ * -meerdere malen zelfde email -> ?
+ * -
+ */
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -10,11 +17,15 @@ public class Login extends Communication {
 	private String password;
 	
 	// local
-	private String sql = "SELECT * FROM fys01.Person WHERE password='wasspord';";
-	
+	private String db_email;
+	private String db_password;
+	private String login_reply;
+	private String sql = "SELECT email, password FROM " + Communication.database_schema + ".Passenger P1 " + 
+						  "INNER JOIN " + Communication.database_schema + ".Person P2 ON P1.personcode=P2.personcode;";
 	
 	public Login() {
 		super();
+		login_reply = "FAIL";
 	}
 
 	@Override
@@ -22,27 +33,30 @@ public class Login extends Communication {
 		
 		ResultSet results = super.database.query(sql);
 		
-		// parse sql results along list of arguments
+		// parse sql results
 		if(results != null) {
+
 			try {
 				while(results.next()) {
-					System.out.println("id: " + results.getInt("personcode"));
-					System.out.println("firstname: " + results.getString("firstname"));
-					System.out.println("lastname: " + results.getString("lastname"));
-					System.out.println("dob: " + results.getString("dob"));
-					System.out.println("password: " + results.getString("password"));
+					db_email = results.getString("email");
+					db_password = results.getString("password");
 				}
 				
 				// close sql search
 				results.close();
 				
+				if(db_email.equals(email) && db_password.equals(password)) {
+					login_reply = "OK";
+				}
+				
 			} catch (SQLException e) {
 				// no results from db
 				System.out.println("LOGIN: DATABASE ERROR: " + e.toString());
+				return super.returnError("database error in login");
 			}	
 		}
 		
-		return "Login: " + "email: " + email + ", password: " + password;
+		return "{\"login_reply\":\"" + login_reply + "\"}";
 	}
 
 }

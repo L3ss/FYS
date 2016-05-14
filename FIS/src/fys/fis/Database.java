@@ -12,7 +12,7 @@ import org.postgresql.ds.PGPoolingDataSource;
 public class Database {
 
 	private final String DB_URI = "localhost:5432";
-	private final String DB_NAME = "fys";
+	protected final String DB_NAME = "fys";
 	private final String DB_LOGIN = "fys";
 	private final String DB_PASSWORD = "fys";
 	private PGPoolingDataSource psqldb;
