@@ -3,7 +3,9 @@ Fasten your seatbelts 2015/2016
 Flight Information System (FIS)
 
 TODO:
+	HTML pagina updaten
 	hardcoded replies aan alle classes toevoegen alvorens ze te implementeren
+	nieuwe Servlet live maken
 	Register class
 	SearchFlight class
 	Bags class
@@ -11,8 +13,6 @@ TODO:
 	BookFlights class
 	CheckIn class
 	InternetAccess class
-	
-	HTML pagina updaten
 	
 
 14-05-2016
