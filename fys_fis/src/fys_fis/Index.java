@@ -1,13 +1,19 @@
 package fys_fis;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.sun.xml.internal.fastinfoset.util.StringArray;
 
 
 @WebServlet("/Index")
@@ -17,6 +23,8 @@ public class Index extends HttpServlet {
 	private String input;
 	private Parser parser;
 	private BufferedReader reader;
+	
+	
        
 	
     /**
@@ -40,50 +48,15 @@ public class Index extends HttpServlet {
 		reader = request.getReader();
 		input = reader.readLine();
 		StringBuffer reply_get = new StringBuffer();
-		
-		reply_get.append("<html><head><title>FYS2015/2016</title></head>");
-		reply_get.append("<body>This is a GET request (.33),<br>");
-		reply_get.append("with these arguments:<br>");
-		reply_get.append(input + "<br><br>");
-		
-		reply_get.append("currently implemented:<br><br>");
-		reply_get.append("<table border=\"1\">");
-		
-		reply_get.append("<tr>");
-		reply_get.append("<td>POST REQUEST</td>");
-		reply_get.append("<td>POST REPLY</td>");
-		reply_get.append("<tr>");
-		
-		reply_get.append("<tr>");
-		reply_get.append("<td></td>");
-		reply_get.append("<td></td>");
-		reply_get.append("<tr>");
-		
-		reply_get.append("<tr>");
-		reply_get.append("<td>{\"function\":\"echo\",\"&lt;key&gt;\":\"&lt;value&gt;\",...}</td>");
-		reply_get.append("<td>{\"function\":\"echo_reply\",\"&lt;key&gt;\":\"&lt;value&gt;\",...}</td>");
-		reply_get.append("<tr>");
-		
-		reply_get.append("<tr>");
-		reply_get.append("<td>null</td>");
-		reply_get.append("<td>{\"error\":\"no input\"}</td>");
-		reply_get.append("<tr>");
-		
-		reply_get.append("<tr>");
-		reply_get.append("<td>&lt;unknown request&gt;</td>");
-		reply_get.append("<td>{\"error\":\"not implemented\"}</td>");
-		reply_get.append("<tr>");
-		
-		reply_get.append("<tr>");
-		reply_get.append("<td>{\"function\":\"login\",\"email\":\"arno.beekman@hva.nl\",\"password\":\"welkom123\"}\"</td>");
-		reply_get.append("<td>{\"function\":\"login_reply\",\"login\":\"OK\"}</td>");
-		reply_get.append("<tr>");
-		
-		
-		reply_get.append("</table>");
-		reply_get.append("</body></html>");
-		
-		response.getWriter().append(reply_get);
+
+		File file = new File("rtfm.html");
+		Scanner html = new Scanner(file);
+		StringArray rtfm = new StringArray();
+		while(html.hasNext()) {
+			rtfm.add(html.nextLine());
+		}
+		html.close();
+		response.getWriter().append("this is it: " + rtfm.toString());
 	}
 
 	
@@ -99,16 +72,21 @@ public class Index extends HttpServlet {
 		// get input
 		reader = request.getReader();
 		input = reader.readLine();
+		HttpSession session = request.getSession();
+		
 		
 		// generate reply
 		StringBuffer reply_post = new StringBuffer();
 
 		if(input != null) {
-			reply_post.append(parser.run(input));
+			//reply_post.append(parser.run(input));
+			//reply_post.append(parser.parse(session, input));
+			reply_post.append(parser.run(session, input));
 		} else {
 			reply_post.append("{\"error\":\"no input\"}");
 		}
 				
+		
 		response.getWriter().append(reply_post);
 	}
 }

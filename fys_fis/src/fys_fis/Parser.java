@@ -1,5 +1,7 @@
 package fys_fis;
 
+import javax.servlet.http.HttpSession;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -11,21 +13,21 @@ import com.google.gson.GsonBuilder;
 public class Parser {
 
 	private String input;
-	private StringBuffer action;
-	private StringBuffer body;
+	private HttpSession session;
+	//private StringBuffer action;
+	//private StringBuffer body;
 	
 	public Parser() {
 	}
 	
-	protected StringBuffer run(String input) {
+	protected StringBuffer run(HttpSession session, String input) {
+		this.session = session;
 		this.input = input;
-		StringBuffer reply = new StringBuffer();
-		action = new StringBuffer();
-		body = new StringBuffer();
-		Communication communication;
 		
-		// split input
-		this.parseOld();
+		StringBuffer reply = new StringBuffer();
+		//action = new StringBuffer();
+		//body = new StringBuffer();
+		Communication communication = this.parse(input);
 		
 		// decide where to go
 		switch(action.toString().toLowerCase()) {
@@ -51,7 +53,7 @@ public class Parser {
 	
 	// GSON parser
 	//private void parse() {
-	public String parse(String input) {
+	public Communication parse(String input) {
 		Gson gson = new GsonBuilder().create();
 		Communication communication = gson.fromJson(input, Communication.class);
 
@@ -60,7 +62,7 @@ public class Parser {
 		return communication.run(sbInput);
 	};
 	
-	
+/*
 	private void parseOld() {
 		// assumes {"function":"action","key1":"value1","key2":["value2a","value2b"]}
 		int index = 12;
@@ -83,4 +85,5 @@ public class Parser {
 			// unknown packet received
 		}
 	}
+*/
 }

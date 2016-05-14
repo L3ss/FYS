@@ -4,14 +4,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import fys_fis.Database;
 
 public class Login extends Communication {
 	
 	private StringBuffer sql;
 	private StringBuffer reply;
-	private fys_fis.Database database;
+	private Database database;
 	
+	
+	
+	private String email;
+	private String password;
+	
+	public Login() {
+		database = new Database();
+	}
+	
+	
+	
+	
+/*
 	private String[] listIDS = {"email","password"};
        
     public Login(StringBuffer body) {
@@ -53,7 +65,7 @@ public class Login extends Communication {
 			} else {
 				resultsList.add("no sql entry.");
 			}
-			*/
+			
     		if(valueList.get(0).equals("arno.beekman@hva.nl") && valueList.get(1).equals("welkom123") )
     			reply.append("{\"function\":\"login_reply\",\"login\":\"OK\"}");
     		else
@@ -63,9 +75,9 @@ public class Login extends Communication {
 		} catch (SQLException e) {
 			// nothing from database 
 			System.out.println("LOGIN: SQL Exception error: " + e.toString());
-			*/
+			/
 		//}
-		
-    	return reply.toString();
-	}
+
+		return reply.toString();
+*/
 }

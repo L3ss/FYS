@@ -5,7 +5,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/opt/wildfly/modules/com/gson/main/gson-2.2.4.jar" sourcepath="/usr/local/wildfly-10.0.0.Final_v02/modules/com/google/gson/main/gson-2.2.4.jar">
+	<classpathentry exported="true" kind="lib" path="/opt/wildfly/modules/com/gson/main/gson-2.2.4.jar" sourcepath="/usr/local/wildfly-10.0.0.Final_v02/modules/com/google/gson/main/gson-2.2.4.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>

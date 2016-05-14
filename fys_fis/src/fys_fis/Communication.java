@@ -1,11 +1,24 @@
 package fys_fis;
 
-import java.util.ArrayList;
+import java.util.Hashtable;
+
+import javax.servlet.http.HttpSession;
 
 
-public class Communication {
+public abstract class Communication {
+	
+	protected abstract String run();
 	
 	private String function;
+	private static Hashtable<HttpSession, String> sessionTable = new Hashtable<HttpSession, String>();
+	
+	private static void addSessionID(HttpSession session, String email) {
+		sessionTable.put(session, email);
+	}
+	
+	private static void removeSessionID(HttpSession session) {
+		if( sessionTable.containsKey(session) ) sessionTable.remove(session);
+	}
 	
 	
 	public Communication() {
