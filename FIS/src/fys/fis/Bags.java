@@ -1,11 +1,31 @@
 package fys.fis;
 
+/*
+ * TODO
+ */
+
+
 public class Bags extends Communication {
+	
+	
+	// GSON
+	
+	// local
+	private String bags_reply;
+	private String sql = "";
+	
+	
+	public Bags() {
+		super();
+		bags_reply = "FAIL";
+	}
 
 	@Override
 	protected String run() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		
+		// hardcoded reply
+		return "{ \"function\" : \"bags_reply\", \"bags\" : \"" + bags_reply + "\" }";
 	}
 
 }

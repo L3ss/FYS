@@ -33,7 +33,7 @@ public abstract class Communication {
 	 * @return {"error":"<melding>"}
 	 */
 	protected String returnError(String errorMessage) {
-		return "{\"error\":\"" + errorMessage + "\"}";
+		return "{ \"error\" : \"" + errorMessage + "\" }";
 	}
 
 }

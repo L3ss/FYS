@@ -71,17 +71,29 @@ public class Index extends HttpServlet {
 		StringBuffer reply_post = new StringBuffer();
 
 		if(input != null) {
+			try {
+
+				Parser parser = gson.fromJson(input, Parser.class);
+				Communication communication = parser.createInstance(Communication.class);
+
 			
-			Parser parser = gson.fromJson(input, Parser.class);
-			Communication communication = parser.createInstance(Communication.class);
-			
-			communication = gson.fromJson(input, communication.getClass());
-			
-			reply_post.append(communication.run());
+				if(communication != null) {
+					
+					communication = gson.fromJson(input, communication.getClass());
+					
+					reply_post.append(communication.run());
+					
+				} else {
+					reply_post.append("{ \"error\" : \"not implemented\" }");
+				}
+			}
+			catch (com.google.gson.JsonSyntaxException e) {
+				reply_post.append("{ \"error\" : \"badly formed JSON\" }");
+			}
 			
 		} else {
 			
-			reply_post.append("{\"error\":\"no input\"}");
+			reply_post.append("{ \"error\" : \"empty post request\" }");
 		}
 		
 		response.getWriter().append(reply_post);

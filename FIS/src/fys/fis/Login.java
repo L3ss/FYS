@@ -5,6 +5,20 @@ package fys.fis;
  * -verkeerd password -> onjuiste invoer (login_reply:fail)
  * -meerdere malen zelfde email -> ?
  * -
+ * 
+ * TODO:
+ * 	-session ID bijhouden
+ */
+
+/**
+ * JSON:
+ * Client:
+ * 		{ "function" : "login",
+ * 			 "email" : "<email>",
+ * 		  "password" : "<password>" }
+ * Server:
+ * 		{ "function" : "login_reply",
+ * 			 "login" : "OK" || "FAIL" }
  */
 
 import java.sql.ResultSet;
@@ -56,7 +70,7 @@ public class Login extends Communication {
 			}	
 		}
 		
-		return "{\"login_reply\":\"" + login_reply + "\"}";
+		return "{ \"function\" : \"login_reply\", \"login\" : \"" + login_reply + "\" }";
 	}
 
 }
