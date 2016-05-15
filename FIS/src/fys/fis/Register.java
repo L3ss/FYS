@@ -1,7 +1,15 @@
 package fys.fis;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /*
  * TODO:
+ * -waarom stuurt client een personcode?
+ * -bepaald server of client de exp_date? -> server is veiliger
+ * -password: md5?
+ * -wanneer niet toelaten?
+ * -expire date toevoegen aan db?
  * 
  */
  
@@ -39,34 +47,119 @@ public class Register extends Communication {
 	private String firstname;
 	private String lastname;
 	private String dob;
-	private Integer personcode;
+	//private Integer personcode;
 	private String id_exp_date;
 	private String password;
 	
 	// local
+	private String db_email;
+	private String db_firstname;
+	private String db_lastname;
+	private String db_dob;
+	private String db_password;
+	private Integer db_personcode;
+	
 	private String register_reply;
-	private String sql = "";
+	private StringBuffer sql_read;
+	private StringBuffer sql_write;
+	
 	
 	public Register() {
 		super();
 		register_reply = "FAIL";
+		
+		sql_read = new StringBuffer();
+		sql_read.append("SELECT personcode,firstname,lastname,dob,password,email ");
+		sql_read.append("FROM " + Communication.database_schema + ".Person ");
+		
+		sql_write = new StringBuffer();
+		sql_write.append("INSERT INTO " + Communication.database_schema + ".Person ");
+		sql_write.append("(firstname,lastname,dob,password,email) VALUES ");
 	}
 
 	
 	@Override
 	protected String run() {
 		
+		sql_read.append("WHERE email='" + email + "' AND firstname='" + firstname + "' ");
+		sql_read.append("AND lastname='" + lastname + "' AND dob='" + dob + "';");
 		
-		// hard coded reply
-		return "{ \"function\" : \"register_reply\", " +
-				    "\"email\" : \"arno.beekman@hva.nl\", " +
-			    "\"firstname\" : \"arno\", " +
-			     "\"lastname\" : \"beekman\", " +
-				      "\"dob\" : 19711214, " +
-			   "\"personcode\" : 1001, " +
-		      "\"id_exp_date\" : 20200515, " +
-			     "\"password\" : \"welkom123\", " +
-			     "\"register\" : \"OK\" }";
+		ResultSet results = super.database.dbQuery(sql_read);
+		
+		// check if exists
+		if(!results.equals(null)) {
+			try {
+				while(results.next()) {
+					db_email = results.getString("email");
+					db_firstname = results.getString("firstname");
+					db_lastname = results.getString("lastname");
+					db_dob = results.getString("dob");
+					db_password = results.getString("password");
+					db_personcode = results.getInt("personcode");
+					System.out.println("REGISTER: exists with personcode: " + db_personcode +
+										" firstname: " + db_firstname +
+										" lastname: " + db_lastname +
+										" dob: " + db_dob +
+										" password: " + db_password );
+					
+					results.close();
+					
+					return super.returnError("account already exists");
+				}
+			} catch (SQLException e) {
+				// database error
+				System.out.println("REGISTER: db error in check if exists");
+			}
+		}
+		
+		
+		// append data to insert query
+		sql_write.append("('" + firstname + "','" + lastname +
+				         "'," + dob + ",'" + password + "','" + email + "');");
+		
+		// write to db
+		results = super.database.dbInsert(sql_write);
+
+		
+		// test if insert successful
+		results = super.database.dbQuery(sql_read);
+		if(results.equals(null)) {
+			// TEST: HOE LOSSEN WE DIT OP???
+			return super.returnError("insert error");
+		}
+
+		try {
+			// parse sql results
+			while(results.next()) {
+				db_email = results.getString("email");
+				db_firstname = results.getString("firstname");
+				db_lastname = results.getString("lastname");
+				db_dob = results.getString("dob");
+				db_password = results.getString("password");
+				db_personcode = results.getInt("personcode");
+			}
+			
+			// close sql search
+			results.close();
+			
+		} catch (SQLException e) {
+			// not everything in db
+			System.out.println("REGISTER: DATABASE ERROR: " + e.toString());
+			return super.returnError("couldn't retrieve all data after insert");
+		}
+		
+		// build reply
+		register_reply =  "{ \"function\" : \"register_reply\", " +
+							   "\"email\" : \"" + db_email + "\", " +
+						   "\"firstname\" : \"" + db_firstname + "\", " +
+						    "\"lastname\" : \"" + db_lastname + "\", " +
+						    	 "\"dob\" : \"" + db_dob + "\", " +
+						  "\"personcode\" : "   + db_personcode + ", " +
+						 "\"id_exp_date\" : "   + 20200515 + ", " +
+						 	"\"password\" : \"" + db_password + "\", " +
+						 	"\"register\" : \"OK\" }";
+		
+		return register_reply;
 	}
 
 }

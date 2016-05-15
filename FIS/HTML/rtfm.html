@@ -58,17 +58,32 @@
 			<tr>
 			
 			<tr> <!-- REGISTER CLASS -->
-				<td>{ "function" : "register" }</td>
+				<td>"{ "function" : "register", 
+				          "email" : "&lt;email&gt;", 
+			    	  "firstname" : "&lt;firstname&gt;", 
+			       	   "lastname" : "&lt;lastname&gt;", 
+				            "dob" : "YYYYMMDD",
+			           "password" : "&lt;password&gt;"}"</td>
 				<td>"{ "function" : "register_reply", 
-				          "email" : "arno.beekman@hva.nl", 
-			    	  "firstname" : "arno", 
-			       	   "lastname" : "beekman", 
-				            "dob" : 19711214, 
-			         "personcode" : 1001, 
+				          "email" : "&lt;email&gt;", 
+			    	  "firstname" : "&lt;firstname&gt;", 
+			       	   "lastname" : "&lt;lastname&gt;", 
+				            "dob" : "YYYYMMDD", 
+			         "personcode" : int, 
 		            "id_exp_date" : 20200515, 
-			           "password" : "welkom123", 
+			           "password" : "&lt;password&gt;", 
 			           "register" : "OK" }"</td>
+				</tr><tr>
+				<td></td>
+				<td>{ "error" : "account already exists" }</td>
+				</tr><tr>
+				<td></td>
+				<td>{ "error" : "insert error" }</td>
+				</tr><tr>
+				<td></td>
+				<td>{ "error" : "couldn't retrieve all data after insert" }</td>
 			</tr>
+			
 			
 			<tr>
 				<td>{ "function" : "search_flight" }</td>

@@ -6,12 +6,19 @@ public class Boarding extends Communication {
 	
 	// local
 	private String boarding_reply;
-	private String sql = "";
+	private StringBuffer sql_read;
+	private StringBuffer sql_write;
 	
 	
 	public Boarding() {
 		super();
 		boarding_reply = "FAIL";
+		
+		sql_read = new StringBuffer();
+		sql_read.append("");
+		
+		sql_write = new StringBuffer();
+		sql_write.append("");
 	}
 
 	@Override

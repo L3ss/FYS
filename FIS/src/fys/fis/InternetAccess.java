@@ -6,12 +6,19 @@ public class InternetAccess extends Communication {
 	
 	// local
 	private String internet_access_reply;
-	private String sql = "";
+	private StringBuffer sql_read;
+	private StringBuffer sql_write;
 	
 	
 	public InternetAccess() {
 		super();
 		internet_access_reply = "FAIL";
+		
+		sql_read = new StringBuffer();
+		sql_read.append("");
+		
+		sql_write = new StringBuffer();
+		sql_write.append("");
 	}
 
 	@Override

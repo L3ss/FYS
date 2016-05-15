@@ -33,19 +33,27 @@ public class Login extends Communication {
 	// local
 	private String db_email;
 	private String db_password;
+	
 	private String login_reply;
-	private String sql = "SELECT email, password FROM " + Communication.database_schema + ".Passenger P1 " + 
-						  "INNER JOIN " + Communication.database_schema + ".Person P2 ON P1.personcode=P2.personcode;";
+	private StringBuffer sql_read;
+	private StringBuffer sql_write;
 	
 	public Login() {
 		super();
 		login_reply = "FAIL";
+		
+		sql_read = new StringBuffer();
+		sql_read.append("SELECT email, password FROM " + Communication.database_schema + ".Passenger P1 ");
+		sql_read.append("INNER JOIN " + Communication.database_schema + ".Person P2 ON P1.personcode=P2.personcode;");
+		
+		sql_write = new StringBuffer();
+		sql_write.append("");
 	}
 
 	@Override
 	protected String run() {
 		
-		ResultSet results = super.database.query(sql);
+		ResultSet results = super.database.dbQuery(sql_read);
 		
 		// parse sql results
 		if(results != null) {
@@ -67,7 +75,7 @@ public class Login extends Communication {
 				// no results from db
 				System.out.println("LOGIN: DATABASE ERROR: " + e.toString());
 				return super.returnError("database error in login");
-			}	
+			}
 		}
 		
 		return "{ \"function\" : \"login_reply\", \"login\" : \"" + login_reply + "\" }";

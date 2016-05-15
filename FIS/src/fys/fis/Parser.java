@@ -9,8 +9,9 @@ public class Parser extends Index implements InstanceCreator<Communication> {
 
 	private static final long serialVersionUID = 1L;
 	
+	// GSON
 	private String function;
-
+	
 
 	@Override
 	public Communication createInstance(Type type) {

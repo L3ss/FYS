@@ -46,13 +46,15 @@ public class Database {
 	}
 	
 	
-	protected ResultSet query(String query) {
+	protected ResultSet dbQuery(StringBuffer query) {
+		
+		System.out.println("SQL Query: " + query.toString());
 		ResultSet results = null;
     	
 		try {
         	Connection db = psqldb.getConnection();
 			Statement st = db.createStatement();
-			results = st.executeQuery(query);
+			results = st.executeQuery(query.toString());
 
 			// close connection
 			//st.close();
@@ -60,10 +62,21 @@ public class Database {
 			db.close();
 			
 		} catch (SQLException e) {
-			// cannot connect to postgresql database
+			// no results
 			System.out.println("DATABASE: sql exception " + e.toString());
+			return null;
 		}
 		
 		return results;
 	}
+	
+	
+	protected ResultSet dbInsert(StringBuffer query) {
+		
+		query.append(" COMMIT;");
+		System.out.println("SQL Insert: " + query.toString());
+		
+		return dbQuery(query);
+	}
+
 }

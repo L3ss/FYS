@@ -6,12 +6,19 @@ public class CheckIn extends Communication {
 	
 	// local
 	private String check_in_reply;
-	private String sql = "";
+	private StringBuffer sql_read;
+	private StringBuffer sql_write;
 	
 	
 	public CheckIn() {
 		super();
 		check_in_reply = "FAIL";
+		
+		sql_read = new StringBuffer();
+		sql_read.append("");
+		
+		sql_write = new StringBuffer();
+		sql_write.append("");
 	}
 
 	@Override

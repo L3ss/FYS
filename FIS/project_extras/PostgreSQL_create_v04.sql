@@ -33,17 +33,18 @@ CREATE TABLE IF NOT EXISTS fys.Plane
 
 CREATE TABLE IF NOT EXISTS fys.Person
 (
-  personcode   INT NULL,
+  personcode   SERIAL,
   firstname    VARCHAR(45) NULL,
   lastname     VARCHAR(45) NULL,
   dob          VARCHAR(45) NULL,
+  email        VARCHAR(45) NULL,
   password     VARCHAR(45) NULL,
   PRIMARY KEY (personcode)
 );
 
 CREATE TABLE IF NOT EXISTS fys.Bag
 (
-  bagcode     INT NULL,
+  bagcode     SERIAL,
   delivered   VARCHAR(45) NULL,
   PRIMARY KEY (bagcode)
 );
@@ -54,7 +55,7 @@ CREATE TABLE IF NOT EXISTS fys.Bag
 --
 CREATE TABLE IF NOT EXISTS fys.Flight
 (
-  flightcode   INT NULL,
+  flightcode   SERIAL,
   price        VARCHAR(45) NULL,
   planecode    INT NULL,
   PRIMARY KEY (flightcode)
@@ -70,7 +71,7 @@ CREATE TABLE IF NOT EXISTS fys.Flightdate
 
 CREATE TABLE IF NOT EXISTS fys.Internet
 (
-  internetcode       INT NULL,
+  internetcode       SERIAL,
   activemacaddress   VARCHAR(45) NULL,
   ticketcode         INT NULL,
   PRIMARY KEY (internetcode)
@@ -78,7 +79,7 @@ CREATE TABLE IF NOT EXISTS fys.Internet
 
 CREATE TABLE IF NOT EXISTS fys.InternetLog
 (
-  internetlogcode   INT NULL,
+  internetlogcode   SERIAL,
   startdatetime     VARCHAR(45) NULL,
   macaddress        VARCHAR(45) NULL,
   ipaddress         VARCHAR(45) NULL,
@@ -88,8 +89,8 @@ CREATE TABLE IF NOT EXISTS fys.InternetLog
 
 CREATE TABLE IF NOT EXISTS fys.Passenger
 (
-  passengercode   INT NULL,
-  email           VARCHAR(45) NULL,
+  passengercode   SERIAL,
+--  email           VARCHAR(45) NULL,
 --  ticketcode      INT NULL,
   ticketcode      INT NULL,
   personcode      INT NULL,
@@ -98,7 +99,7 @@ CREATE TABLE IF NOT EXISTS fys.Passenger
 
 CREATE TABLE IF NOT EXISTS fys.Id
 (
-  idcode          INT NULL,
+  idcode          SERIAL,
   idcity          VARCHAR(45) NULL,
   passengercode   INT NULL,
   PRIMARY KEY (idcode)
@@ -109,7 +110,7 @@ CREATE TABLE IF NOT EXISTS fys.Country
   countrycode2   INT NULL,
   countrycode3   VARCHAR(45) NULL,
   countryname    VARCHAR(45) NULL,
-  Idcode         INT NULL,
+  idcode         INT NULL,
   PRIMARY KEY (countrycode2)
 );
 
@@ -125,7 +126,7 @@ CREATE TABLE IF NOT EXISTS fys.Airport
 
 CREATE TABLE IF NOT EXISTS fys.Leg
 (
-  legcode               INT NULL,
+  legcode               SERIAL,
   arrivaltimeoffset     VARCHAR(45) NULL,
   departuretimeoffset   VARCHAR(45) NULL,
   internetlogcode       INT NULL,
@@ -137,7 +138,7 @@ CREATE TABLE IF NOT EXISTS fys.Leg
 
 CREATE TABLE IF NOT EXISTS fys.BoardingPass
 (
-  boardingcode   INT NULL,
+  boardingcode   SERIAL,
   legcode        INT NULL,
   flightdate     VARCHAR(45) NULL,
   PRIMARY KEY (boardingcode)
@@ -145,7 +146,7 @@ CREATE TABLE IF NOT EXISTS fys.BoardingPass
 
 CREATE TABLE IF NOT EXISTS fys.Booking
 (
-  bookingcode   INT NULL,
+  bookingcode   SERIAL,
   legcode       INT NULL,
   PRIMARY KEY (bookingcode)
 );
@@ -153,7 +154,7 @@ CREATE TABLE IF NOT EXISTS fys.Booking
 CREATE TABLE IF NOT EXISTS fys.Ticket
 (
 --  ticketcode      INT NULL,
-  ticketcode     INT NULL,
+  ticketcode     SERIAL,
 --  flightdate     VARCHAR(45) NULL,
   flightdate     VARCHAR(45) NULL,
   boardingcode   INT NULL,

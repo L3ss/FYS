@@ -52,15 +52,31 @@ public class SearchFlights extends Communication {
 	
 	// local
 	private String search_flights_reply;
-	private String sql = "";
+	private StringBuffer sql_read;
+	private StringBuffer sql_write;
+	
 
 	public SearchFlights() {
 		super();
 		search_flights_reply = "FAIL";
+		
+		sql_read = new StringBuffer();
+		sql_read.append("");
+		
+		sql_write = new StringBuffer();
+		sql_write.append("");
 	}
 	
 	@Override
 	protected String run() {
+		/* walk through db results
+		try {
+			while(results.next()) {
+				db_email = results.getString("email");
+				db_firstname = results.getString("firstname");
+				db_lastname = results.getString("lastname");
+				db_dob = results.getString("dob");
+			} */
 		
 		// hard coded reply
 		return "{ \"function\" : \"search_flight_reply\", " +
