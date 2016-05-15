@@ -43,8 +43,7 @@ public class Login extends Communication {
 		login_reply = "FAIL";
 		
 		sql_read = new StringBuffer();
-		sql_read.append("SELECT email, password FROM " + Communication.database_schema + ".Passenger P1 ");
-		sql_read.append("INNER JOIN " + Communication.database_schema + ".Person P2 ON P1.personcode=P2.personcode;");
+		sql_read.append("SELECT email,password FROM " + Communication.database_schema + ".Person ");
 		
 		sql_write = new StringBuffer();
 		sql_write.append("");
@@ -53,10 +52,11 @@ public class Login extends Communication {
 	@Override
 	protected String run() {
 		
+		sql_read.append("WHERE email='" + email + "' AND password='" + password + "';");
 		ResultSet results = super.database.dbQuery(sql_read);
 		
 		// parse sql results
-		if(results != null) {
+		if(!results.equals(null)) {
 
 			try {
 				while(results.next()) {
@@ -67,18 +67,25 @@ public class Login extends Communication {
 				// close sql search
 				results.close();
 				
-				if(db_email.equals(email) && db_password.equals(password)) {
+				// FIX THIS!!!
+				if( !db_email.equals(null) && !db_password.equals(null)) {
 					login_reply = "OK";
 				}
 				
 			} catch (SQLException e) {
-				// no results from db
+				
+				// db error
 				System.out.println("LOGIN: DATABASE ERROR: " + e.toString());
 				return super.returnError("database error in login");
+			
+			} catch (java.lang.NullPointerException e) {
+				// no results from db: null --> FIX THIS
+				System.out.println("LOGIN: EMPTY RESULTS: " + e.toString());
 			}
 		}
 		
-		return "{ \"function\" : \"login_reply\", \"login\" : \"" + login_reply + "\" }";
+		return "{ \"function\" : \"login_reply\", " +
+					"\"login\" : \"" + login_reply + "\" }";
 	}
 
 }

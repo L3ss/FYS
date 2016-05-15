@@ -15,11 +15,12 @@ TODO list (van boven naar beneden afwerken):
 	BookFlights class implementeren
 	CheckIn class implementeren
 	InternetAccess class implementeren
-	Error log CLass
+	Error log Class
 	
 15-05-2016
 	GIT gepusht
 	live Servlet en PSQL geupdate
+	Login & Database Class fix (nog niet OK)
 	HTML pagina geupdate
 	Register class eerste implementatie: schrijft naar db
 	Database Class aangepast: dbInsert erbij voor COMMIT

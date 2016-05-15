@@ -55,7 +55,7 @@ public class Database {
         	Connection db = psqldb.getConnection();
 			Statement st = db.createStatement();
 			results = st.executeQuery(query.toString());
-
+			
 			// close connection
 			//st.close();
 			//results.close();
@@ -64,7 +64,7 @@ public class Database {
 		} catch (SQLException e) {
 			// no results
 			System.out.println("DATABASE: sql exception " + e.toString());
-			return null;
+			//return null;
 		}
 		
 		return results;
