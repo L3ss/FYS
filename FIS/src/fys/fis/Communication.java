@@ -1,37 +1,60 @@
 package fys.fis;
 
-import java.util.Hashtable;
+/*
+ * TODO:
+ * -sla gehele session op of alleen ID?
+ * 
+ */
+
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+
 public abstract class Communication {
+	
+	
+	protected static final String NOSESSIONFOUND = "nosessionfound"; 
+	
 	
 	protected Database database;
 	protected static String database_schema;
-	protected HttpSession session;
-	private static Hashtable<HttpSession, String> sessionTable = new Hashtable<HttpSession, String>();
+	private static HashMap<String, Session> sessionMap;
 
+	
+	
 	public Communication() {
 		database = new Database();
 		database_schema = database.DB_NAME;
+		sessionMap = new HashMap<String, Session>();
 	}
 	
-	protected abstract String run();
+	
+	protected abstract String run(HttpSession session);
+	
+	
+	protected void addSession(HttpSession session, String email) {
+		
+		sessionMap.put(session.getId(), new Session(email,session));
+	}
+	
+	
+	protected void removeSession(String sessionID) {
+		
+		if( sessionMap.containsKey(sessionID) ) sessionMap.remove(sessionID);
+	}
+	
+	
+	protected String existSession(String sessionID) {
+		
+		// session exists -> return email
+		if(!sessionMap.isEmpty() && sessionMap.containsKey(sessionID)) {
+			return sessionMap.get(sessionID).getEmail();
+		}
+		return NOSESSIONFOUND;
+	}
 
-	
-	private void addSessionID(HttpSession session, String email) {
-		sessionTable.put(session, email);
-	}
-	
-	private void removeSessionID(HttpSession session) {
-		if( sessionTable.containsKey(session) ) sessionTable.remove(session);
-	}
 
-	/**
-	 * Algemeen foutbericht in JSON
-	 * @param errorMessage: melding string
-	 * @return {"error":"<melding>"}
-	 */
 	protected String returnError(String errorMessage) {
 		return "{ \"error\" : \"" + errorMessage + "\" }";
 	}

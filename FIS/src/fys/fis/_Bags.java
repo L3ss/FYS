@@ -1,11 +1,13 @@
 package fys.fis;
 
+import javax.servlet.http.HttpSession;
+
 /*
  * TODO
  */
 
 
-public class Bags extends Communication {
+public class _Bags extends Communication {
 	
 	
 	// GSON
@@ -16,7 +18,7 @@ public class Bags extends Communication {
 	private StringBuffer sql_write;
 	
 	
-	public Bags() {
+	public _Bags() {
 		super();
 		bags_reply = "FAIL";
 		
@@ -28,7 +30,11 @@ public class Bags extends Communication {
 	}
 
 	@Override
-	protected String run() {
+	protected String run(HttpSession session) {
+		
+		if(super.existSession(session.getId()) != Communication.NOSESSIONFOUND) {
+			returnError("not logged in");
+		}
 		
 		
 		// hardcoded reply

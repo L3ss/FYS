@@ -1,6 +1,8 @@
 package fys.fis;
 
-public class BookFlights extends Communication {
+import javax.servlet.http.HttpSession;
+
+public class _BookFlights extends Communication {
 
 	// GSON
 	
@@ -10,7 +12,7 @@ public class BookFlights extends Communication {
 	private StringBuffer sql_write;
 	
 	
-	public BookFlights() {
+	public _BookFlights() {
 		super();
 		book_flights_reply = "FAIL";
 		
@@ -22,7 +24,11 @@ public class BookFlights extends Communication {
 	}
 
 	@Override
-	protected String run() {
+	protected String run(HttpSession session) {
+		
+		if(super.existSession(session.getId()) != Communication.NOSESSIONFOUND) {
+			returnError("not logged in");
+		}
 		
 		
 		// hardcoded reply

@@ -1,5 +1,6 @@
 package fys.fis;
 
+import javax.servlet.http.HttpSession;
 
 /*
  * TODO
@@ -40,7 +41,7 @@ package fys.fis;
  *
  */
 
-public class SearchFlights extends Communication {
+public class _SearchFlights extends Communication {
 	
 	// GSON
 	private String airportcode_orig;
@@ -56,7 +57,7 @@ public class SearchFlights extends Communication {
 	private StringBuffer sql_write;
 	
 
-	public SearchFlights() {
+	public _SearchFlights() {
 		super();
 		search_flights_reply = "FAIL";
 		
@@ -68,15 +69,12 @@ public class SearchFlights extends Communication {
 	}
 	
 	@Override
-	protected String run() {
-		/* walk through db results
-		try {
-			while(results.next()) {
-				db_email = results.getString("email");
-				db_firstname = results.getString("firstname");
-				db_lastname = results.getString("lastname");
-				db_dob = results.getString("dob");
-			} */
+	protected String run(HttpSession session) {
+
+		if(super.existSession(session.getId()) != Communication.NOSESSIONFOUND) {
+			returnError("not logged in");
+		}
+
 		
 		// hard coded reply
 		return "{ \"function\" : \"search_flight_reply\", " +

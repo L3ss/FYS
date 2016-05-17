@@ -8,7 +8,6 @@ TODO list (van boven naar beneden afwerken):
 	HTML pagina updaten
 	
 	SearchFlights: Arrays van Flights in JSON ?
-	session ID bijhouden vanuit Login class
 	SearchFlights class implementeren
 	Bags class implementeren
 	Boarding class implementeren
@@ -16,6 +15,13 @@ TODO list (van boven naar beneden afwerken):
 	CheckIn class implementeren
 	InternetAccess class implementeren
 	Error log Class
+	
+	
+18-05-2016
+	sessions vanuit Login class bijgehouden en
+		gecheckt in elke Class
+	Register Class hard coded expire date vervangen
+		door "nu + 1 jaar" (nog niet in database)
 	
 15-05-2016
 	GIT gepusht

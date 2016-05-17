@@ -2,7 +2,6 @@ package fys.fis;
 
 import java.io.File;
 import java.io.IOException;
-//import java.lang.reflect.Type;
 import java.util.Scanner;
 
 import javax.servlet.ServletException;
@@ -63,7 +62,7 @@ public class Index extends HttpServlet {
 	
 	/**
 	 * POST requests
-	 */
+	 */	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -81,7 +80,7 @@ public class Index extends HttpServlet {
 					
 					communication = gson.fromJson(input, communication.getClass());
 					
-					reply_post.append(communication.run());
+					reply_post.append(communication.run(request.getSession()));
 					
 				} else {
 					reply_post.append("{ \"error\" : \"not implemented\" }");

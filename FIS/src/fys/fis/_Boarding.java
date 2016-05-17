@@ -1,6 +1,8 @@
 package fys.fis;
 
-public class Boarding extends Communication {
+import javax.servlet.http.HttpSession;
+
+public class _Boarding extends Communication {
 
 	// GSON
 	
@@ -10,7 +12,7 @@ public class Boarding extends Communication {
 	private StringBuffer sql_write;
 	
 	
-	public Boarding() {
+	public _Boarding() {
 		super();
 		boarding_reply = "FAIL";
 		
@@ -22,7 +24,11 @@ public class Boarding extends Communication {
 	}
 
 	@Override
-	protected String run() {
+	protected String run(HttpSession session) {
+		
+		if(super.existSession(session.getId()) != Communication.NOSESSIONFOUND) {
+			returnError("not logged in");
+		}
 		
 		
 		// hardcoded reply

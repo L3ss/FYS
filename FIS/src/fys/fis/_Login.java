@@ -24,7 +24,10 @@ package fys.fis;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Login extends Communication {
+import javax.servlet.http.HttpSession;
+
+
+public class _Login extends Communication {
 	
 	// GSON
 	private String email;
@@ -38,7 +41,7 @@ public class Login extends Communication {
 	private StringBuffer sql_read;
 	private StringBuffer sql_write;
 	
-	public Login() {
+	public _Login() {
 		super();
 		login_reply = "FAIL";
 		
@@ -50,7 +53,14 @@ public class Login extends Communication {
 	}
 
 	@Override
-	protected String run() {
+	protected String run(HttpSession session) {
+		
+		// check if session exists
+		if(super.existSession(session.getId()) == email) {
+			// already logged in (TODO: IS DIT GENOEG GECHECKT?)
+			return "{ \"function\" : \"login_reply\", \"login\" : \"OK\" }";
+		}
+		
 		
 		sql_read.append("WHERE email='" + email + "' AND password='" + password + "';");
 		ResultSet results = super.database.dbQuery(sql_read);
@@ -67,7 +77,7 @@ public class Login extends Communication {
 				// close sql search
 				results.close();
 				
-				// FIX THIS!!!
+				// FIX THIS!!! (null reponse)
 				if( !db_email.equals(null) && !db_password.equals(null)) {
 					login_reply = "OK";
 				}
@@ -83,6 +93,9 @@ public class Login extends Communication {
 				System.out.println("LOGIN: EMPTY RESULTS: " + e.toString());
 			}
 		}
+		
+		// add session to table
+		super.addSession(session, email);
 		
 		return "{ \"function\" : \"login_reply\", " +
 					"\"login\" : \"" + login_reply + "\" }";

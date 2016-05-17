@@ -1,6 +1,19 @@
 package fys.fis;
 
-public class InternetAccess extends Communication {
+import javax.servlet.http.HttpSession;
+
+/*
+ * steps:
+ * -login
+ * -select flight
+ * -request internet on chose flight
+ * -(personcode), email, password, macaddress, (flightcode), flight, ip address, timeframe 
+ * 
+ * TODO
+ * -
+ */
+
+public class _InternetAccess extends Communication {
 
 	// GSON
 	
@@ -10,7 +23,7 @@ public class InternetAccess extends Communication {
 	private StringBuffer sql_write;
 	
 	
-	public InternetAccess() {
+	public _InternetAccess() {
 		super();
 		internet_access_reply = "FAIL";
 		
@@ -22,7 +35,11 @@ public class InternetAccess extends Communication {
 	}
 
 	@Override
-	protected String run() {
+	protected String run(HttpSession session) {
+		
+		if(super.existSession(session.getId()) != Communication.NOSESSIONFOUND) {
+			returnError("not logged in");
+		}
 		
 		
 		// hardcoded reply

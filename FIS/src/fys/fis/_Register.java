@@ -2,6 +2,13 @@ package fys.fis;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+
+import javax.servlet.http.HttpSession;
+
+import sun.util.calendar.BaseCalendar;
+import sun.util.calendar.BaseCalendar.Date;
+
 
 /*
  * TODO:
@@ -10,6 +17,7 @@ import java.sql.SQLException;
  * -password: md5?
  * -wanneer niet toelaten?
  * -expire date toevoegen aan db?
+ * -na registreren meteen ingelogd? -> sessionID opgeslagen
  * 
  */
  
@@ -40,7 +48,7 @@ import java.sql.SQLException;
  */
 
 
-public class Register extends Communication { 
+public class _Register extends Communication { 
 
 	// GSON
 	private String email;
@@ -48,7 +56,7 @@ public class Register extends Communication {
 	private String lastname;
 	private String dob;
 	//private Integer personcode;
-	private String id_exp_date;
+	private LocalDateTime id_exp_date;
 	private String password;
 	
 	// local
@@ -64,9 +72,11 @@ public class Register extends Communication {
 	private StringBuffer sql_write;
 	
 	
-	public Register() {
+	public _Register() {
 		super();
 		register_reply = "FAIL";
+		id_exp_date = LocalDateTime.now();
+		id_exp_date.plusYears(1l);
 		
 		sql_read = new StringBuffer();
 		sql_read.append("SELECT personcode,firstname,lastname,dob,password,email ");
@@ -79,7 +89,7 @@ public class Register extends Communication {
 
 	
 	@Override
-	protected String run() {
+	protected String run(HttpSession session) {
 		
 		sql_read.append("WHERE email='" + email + "' AND firstname='" + firstname + "' ");
 		sql_read.append("AND lastname='" + lastname + "' AND dob='" + dob + "';");
@@ -155,7 +165,7 @@ public class Register extends Communication {
 						    "\"lastname\" : \"" + db_lastname + "\", " +
 						    	 "\"dob\" : \"" + db_dob + "\", " +
 						  "\"personcode\" : "   + db_personcode + ", " +
-						 "\"id_exp_date\" : "   + 20200515 + ", " +
+						 "\"id_exp_date\" : "   + id_exp_date + ", " +
 						 	"\"password\" : \"" + db_password + "\", " +
 						 	"\"register\" : \"OK\" }";
 		

@@ -19,32 +19,32 @@ public class Parser extends Index implements InstanceCreator<Communication> {
 		switch(function.toLowerCase()) {
 			
 		case "bags":
-			return new Bags();
+			return new _Bags();
 			
 		case "boarding":
-			return new Boarding();
+			return new _Boarding();
 			
 		case "book_flights":
 		case "bookflights":
-			return new BookFlights();
+			return new _BookFlights();
 			
 		case "check_in":
 		case "checkin":
-			return new CheckIn();
+			return new _CheckIn();
 			
 		case "internet_access":
 		case "internetaccess":
-			return new InternetAccess();
+			return new _InternetAccess();
 			
 		case "login":
-			return new Login();
+			return new _Login();
 
 		case "register":
-			return new Register();
+			return new _Register();
 			
 		case "search_flights":
 		case "searchflights":
-			return new SearchFlights();
+			return new _SearchFlights();
 			
 		default:
 			return null;
