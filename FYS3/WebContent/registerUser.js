@@ -3,7 +3,7 @@
  */
 
 function registerClick(e) {
-	require(["dojo/dom","dijit/registry"], function(dom, registry){
+	require(["dojo/dom","dijit/registry","dojo/dom-style"], function(dom, registry, domStyle){
 		var regFirstName = registry.byId("registerFirstName").get("value");
 		var regLastName = registry.byId("registerLastName").get("value");
 		var regEmail = registry.byId("registerEmail").get("value");
@@ -12,13 +12,16 @@ function registerClick(e) {
 		var regIdNumber = registry.byId("registerIdNumber").get("value");
 		var regIdExpiry = registry.byId("registerIdExpiryDate").get("value");
 		
-		var validEmailRegEx = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
+		
 		
 		if (regFirstName == "") {
-			alert("First Name has to be valid");
+			domStyle.set("registerFirstName", {
+				"border-color" : "red",
+				"border-width" : "2px"
+			});
 		} else if (regLastName == "") {
 			alert("Last Name has to be a valid name");
-		} else if (!validEmailRegEx.test(regEmail)) {
+		} else if (!validEmail(regEmail)) {
 			alert("Email address is not valid!")
 		} else if (regPassword.length < 8) {
 			alert("Your password isn't long enough")
@@ -42,4 +45,14 @@ function registerClick(e) {
 	    
 	    
 	});
+}
+
+function validEmail(email) {
+	var validEmailRegEx = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
+	
+	if (validEmailRegEx.test(email)) {
+		return true;
+	} else {
+		return false;
+	}
 }
