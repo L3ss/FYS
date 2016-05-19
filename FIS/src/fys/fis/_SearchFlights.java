@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  * Server:
  * {"function" : "search_flight_reply", 
  *    "flight" : 
- *               {"flightcode" : <flightcode>, 
+ *             [ {"flightcode" : <flightcode>, 
  *          "airportcode_orig" : <origin>, 
  *          "airportcode_dest" : <destination>, 
  *                "flightdate" : <date>, 
@@ -36,7 +36,7 @@ import javax.servlet.http.HttpSession;
  *                      "date" : <date>, 
  *            "departure_time" : <departuretimeoffset>, 
  *              "arrival_time" : <arrivaltimeoffset>, 
- *               "total_price" : <totalprice> }
+ *               "total_price" : <totalprice> } ]
  *  }
  *
  */
@@ -79,7 +79,7 @@ public class _SearchFlights extends Communication {
 		// hard coded reply
 		return "{ \"function\" : \"search_flight_reply\", " +
 				   "\"flight\" : " +
-			 "{ \"flightcode\" : 2001, " +
+			"[{ \"flightcode\" : 2001, " +
 		 "\"airportcode_orig\" : 0051, " +
 		 "\"airportcode_dest\" : 0052, " +
 		 	   "\"flightdate\" : 20010911, " +
@@ -92,7 +92,7 @@ public class _SearchFlights extends Communication {
 	          		 "\"date\" : 20010912, " +
      "\"departure_timeoffset\" : 0047, " +
        "\"arrival_timeoffset\" : -0600, " +
-              "\"total_price\" : 248 } }";
+              "\"total_price\" : 248 }] }";
 	}
 
 }
