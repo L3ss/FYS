@@ -2,6 +2,11 @@ package fys.fis;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * Passenger's boarding information
+ * @author Arno
+ *
+ */
 public class _Boarding extends Communication {
 
 	// GSON

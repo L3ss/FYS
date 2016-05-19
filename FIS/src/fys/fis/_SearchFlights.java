@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 
 /**
+ * Search in the system for avialble flights
+ * @author Arno
  * 
  * Client: 
  *          {"function" : "search_flight", 
@@ -80,18 +82,18 @@ public class _SearchFlights extends Communication {
 		return "{ \"function\" : \"search_flight_reply\", " +
 				   "\"flight\" : " +
 			"[{ \"flightcode\" : 2001, " +
-		 "\"airportcode_orig\" : 0051, " +
-		 "\"airportcode_dest\" : 0052, " +
+		 "\"airportcode_orig\" : 51, " +
+		 "\"airportcode_dest\" : 52, " +
 		 	   "\"flightdate\" : 20010911, " +
-	  "\"departuretimeoffset\" : -0600, " + 
-	    "\"arrivaltimeoffset\" : 0047, " +
+	  "\"departuretimeoffset\" : -600, " + 
+	    "\"arrivaltimeoffset\" : 47, " +
 	     	  "\"total_price\" : 250 }, " +
 			 "{ \"flightcode\" : 2002, " +
-	       "\"origin_airport\" : 0052, " +
-	         "\"dest_airport\" : 0051, " +
+	       "\"origin_airport\" : 52, " +
+	         "\"dest_airport\" : 51, " +
 	          		 "\"date\" : 20010912, " +
-     "\"departure_timeoffset\" : 0047, " +
-       "\"arrival_timeoffset\" : -0600, " +
+     "\"departure_timeoffset\" : 47, " +
+       "\"arrival_timeoffset\" : -600, " +
               "\"total_price\" : 248 }] }";
 	}
 

@@ -2,6 +2,11 @@ package fys.fis;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * Check a passenger in for a flight
+ * @author Arno
+ *
+ */
 public class _CheckIn extends Communication {
 
 	// GSON

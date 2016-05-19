@@ -9,6 +9,12 @@ import javax.naming.*;
 
 import org.postgresql.ds.PGPoolingDataSource;
 
+
+/**
+ * Takes care of all database communication
+ * @author Arno
+ *
+ */
 public class Database {
 
 	private final String DB_URI = "localhost:5432";
@@ -18,11 +24,20 @@ public class Database {
 	private PGPoolingDataSource psqldb;
 	
 	
+	/**
+	 * Empty constructor
+	 */
 	public Database() {
 		this((new StringBuffer()).append("error"));
 	}
 	
 	
+	/**
+	 * Overloaded constructor
+	 * @param body data from post request
+	 * 
+	 * TO BE DELETED (body is not needed anymore)
+	 */
 	public Database(StringBuffer body) {
 
 		psqldb = new PGPoolingDataSource();
@@ -46,6 +61,11 @@ public class Database {
 	}
 	
 	
+	/**
+	 * Query the database
+	 * @param query a clear text SQL statement
+	 * @return ResultSet with database results
+	 */
 	protected ResultSet dbQuery(StringBuffer query) {
 		
 		System.out.println("SQL Query: " + query.toString());
@@ -71,6 +91,13 @@ public class Database {
 	}
 	
 	
+	/**
+	 * Insert SQL query, to store data in the database
+	 * @param querya clear text SQL statement
+	 * @return ResultSet if exists
+	 * 
+	 * TEST IF RETURN VALUE IS ACTUALLY EVER USED 
+	 */
 	protected ResultSet dbInsert(StringBuffer query) {
 		
 		query.append(" COMMIT;");

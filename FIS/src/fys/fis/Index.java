@@ -14,9 +14,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 
-
 /**
  * Servlet implementation class Index
+ * @author Arno
+ *
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/Index" })
 public class Index extends HttpServlet {

@@ -13,6 +13,11 @@ import javax.servlet.http.HttpSession;
  * -
  */
 
+/**
+ * Provide internet access to a passenger on a flight
+ * @author Arno
+ *
+ */
 public class _InternetAccess extends Communication {
 
 	// GSON

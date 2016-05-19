@@ -4,9 +4,14 @@ import javax.servlet.http.HttpSession;
 
 /*
  * TODO
+ * -implement
  */
 
-
+/**
+ * Search passenger's bags
+ * @author Arno
+ *
+ */
 public class _Bags extends Communication {
 	
 	
@@ -29,9 +34,11 @@ public class _Bags extends Communication {
 		sql_write.append("");
 	}
 
+	
 	@Override
 	protected String run(HttpSession session) {
 		
+		// is user logged in?
 		if(super.existSession(session.getId()) != Communication.NOSESSIONFOUND) {
 			returnError("not logged in");
 		}

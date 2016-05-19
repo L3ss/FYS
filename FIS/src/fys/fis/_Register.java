@@ -23,6 +23,9 @@ import sun.util.calendar.BaseCalendar.Date;
  
  
 /**
+ * Register a new user
+ * @author Arno
+ *  
  * JSON:
  * Client:
  * 		{ "function" : "register",
@@ -46,8 +49,6 @@ import sun.util.calendar.BaseCalendar.Date;
  *		  "register" : "OK" || "FAIL" }
  *
  */
-
-
 public class _Register extends Communication { 
 
 	// GSON

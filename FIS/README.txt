@@ -16,6 +16,11 @@ TODO list (van boven naar beneden afwerken):
 	InternetAccess class implementeren
 	Error log Class
 	
+
+19-05-2016
+	Fixed JSON errors in hard coded replies
+	Added javadocs: fys.rgbaz.com/doc
+	Fixed JSON inconsistencies in rtfm.html
 	
 18-05-2016
 	sessions vanuit Login class bijgehouden en

@@ -26,7 +26,11 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpSession;
 
-
+/**
+ * Let a user login to the Flight Information System
+ * @author Arno
+ *
+ */
 public class _Login extends Communication {
 	
 	// GSON
@@ -40,6 +44,7 @@ public class _Login extends Communication {
 	private String login_reply;
 	private StringBuffer sql_read;
 	private StringBuffer sql_write;
+	
 	
 	public _Login() {
 		super();

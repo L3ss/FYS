@@ -2,6 +2,11 @@ package fys.fis;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * Book a flight
+ * @author Arno
+ *
+ */
 public class _BookFlights extends Communication {
 
 	// GSON
