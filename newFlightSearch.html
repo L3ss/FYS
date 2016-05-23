@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <title>FYS</title>
+           <!-- dynamically apply native visual theme according to the browser user agent -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/mobile/deviceTheme.js"></script>
+    
+    <script type="text/javascript">
+        dojoConfig = {
+            async: true,
+            parseOnLoad: false
+        };
+    </script>
+    <!-- dojo bootstrap -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+    <!-- dojo application code -->
+    <script type="text/javascript">
+        require([
+            "dojox/mobile/parser",
+            "dojox/mobile/compat",
+            "dojox/mobile/RoundRectList",
+            "dojox/mobile/ListItem",
+            "dojox/mobile/View",
+            "dojox/mobile/Heading",
+            "dojox/mobile/RoundRectCategory",
+            "dojo/domReady!",
+            "dojo/dom",
+            "dojox/mobile/TextBox",
+            "dojox/mobile/Button",
+            "dojox/mobile/DatePicker"
+        ], function (parser) {
+            // now parse the page for widgets
+            parser.parse();
+        });
+    </script>
+    <script type="text/javascript">
+    function searchClick(e) {
+    	require(["dojo/dom","dijit/registry"], function(dom, registry){
+    		var departurevalue = registry.byId("departure").get("value");
+    		var arrivalvalue = registry.byId("arrival").get("value");
+    		var datetime = registry.byId("departureDate").get("value");
+    		var numAdult = registry.byId("adults").get("value");
+    		var numChildren = registry.byId("child").get("value");
+    	    var numBaby = registry.byId("baby").get("value");
+    	    //dom.byId("responseDiv").innerHTML = passBox.get("value");
+    	    //alert(emailBox.get("value"));
+    	    
+    	    if (departurevalue.length < 3 && departurevalue == "" ) {
+    	    	
+    	    	alert("Please insert valid departure destination");
+    	    }
+    	    if (arrivalvalue.length < 3 && arrivalvalue == "") {
+    	    	alert("Please insert valid arrival destination");
+    	    }
+    	    
+    	    
+    	    var xhrArgs = {
+    	    		url: "http://fys.rgbaz.com/",
+    	    		postData: dojo.toJson({function:"search_flights",airportcode_orig:departurevalue,
+    	    		airportcode_dest:arrivalvalue,
+    	    		flightdate:datetime,over18:numAdult,till17:numChildren,under2:numBaby}),
+    	    		handleAs: "text",
+    	    		load: function(data){
+    	    			var obj =JSON.parse(data);
+    	    			
+    	    			var output = "";
+    	    			for (var i=0; i<obj.flight.length; i++) {
+    	    				var currFlight = obj.flight[i];
+    	    				output += "<div>";
+    	    				output += "<b>Flight code : " + currFlight.flightcode + "</b></br>"
+    	    					+ "Origin airport : " + currFlight.airportcode_orig + "</br>"
+    	    					+ "Destination airport : " + currFlight.airportcode_dest + "</br>"
+    	    					+ "Flight date : " + currFlight.flightdate + "</br>"
+    	    					+ "Price : " + currFlight.total_price + "</br></br>";
+    	    				
+    	    				output += "</div>";
+    	    			}
+
+    	    			var flightList = dom.byId("flightListContent");
+    	    			flightList.innerHTML = output;
+    	    			
+    	    			var listitemFlight =registry.byId("searchFlightId");
+    	    			
+    	    			listitemFlight.transitionTo("flightList");
+    	    		},
+    	    		error: function(error){
+    	    			dom.byId("responseDiv").innerHTML = "Something went wrong :(</br>" + error;
+    	    		}
+    	    }
+    	    //dom.byId("responseDiv").innerHTML = "Go on than!";
+    	var deferred = dojo.xhrPost(xhrArgs);
+    	});
+    }
+    
+    </script>
+    </head>
+    
+    <body style="visibility:hidden;">
+        <!-- The "General" sub-page -->
+<div id="general" data-dojo-type="dojox/mobile/View">
+    <!-- a sample heading -->
+    <h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="back:'Settings', moveTo:'settings'">Belle Air</h1>
+    <!-- a rounded rectangle list container -->
+    <ul data-dojo-type="dojox/mobile/RoundRectList">
+        <li data-dojo-type="dojox/mobile/ListItem" data-dojo-props="moveTo:'Searchflight'">Search flight</li>
+       
+    </ul>
+</div>
+<div id="Searchflight" data-dojo-type="dojox/mobile/View">
+	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="back:'Back', moveTo:'indexview'">Belle Air</h1>
+	<ul data-dojo-type="dojox/mobile/RoundRectList">
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<input data-dojo-type="dojox/mobile/TextBox" id="departure" placeHolder="Departure airport" />
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<input data-dojo-type="dojox/mobile/TextBox" id="arrival" placeHolder="Arrival airport" />
+		</li>
+		
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<div id="departureDate" data-dojo-type="dojox/mobile/DatePicker"></div>
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<input data-dojo-type="dojox/mobile/TextBox" id="adults" placeHolder="number of adults(18+)" />
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<input data-dojo-type="dojox/mobile/TextBox" id="child" placeHolder="children(2 till 17)" />
+		</li>
+		<li data-dojo-type="dojox/mobile/ListItem">
+			<input data-dojo-type="dojox/mobile/TextBox" id="baby" placeHolder="baby's(under 2)" />
+		</li>
+	
+		
+		<li data-dojo-type="dojox/mobile/ListItem" id= "searchFlightId">
+			<button data-dojo-type="dojox/mobile/Button" data-dojo-props='onClick:searchClick'>Search flight</button>
+		</li>
+	</ul>
+	<div id="responseDiv"></div>
+		
+		
+</div>
+<div id="flightList" data-dojo-type="dojox/mobile/View">
+ <h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="back:'Search Flight', moveTo:'Searchflight'">Belle Air</h1>
+ <div id="flightListContent"></div>
+<div>
+</div>
+    </body>
+</html>
